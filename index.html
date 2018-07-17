@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>upload js</title>
+</head>
+<body>
+	
+	<form action="send.php" method="post" enctype="multipart/form-data" id="form">
+
+		<input type="file" name="my_file" id="form_file" multiple="">
+		<input type="submit" value="enviar">
+
+	</form>
+
+	<script
+	src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+
+	<script>
+
+		$(function(){
+
+			var form = new FormData;
+
+			$('#form_file').change(function(event){
+
+				// form.append('file1[]', event.target.files[0]);
+				// form.append('text[]', 'xd');
+				
+				jQuery.each(jQuery('#form_file')[0].files, function(i, file) {
+					form.append('file-'+i, file);
+				});
+				
+
+				// console.log(form)
+			});
+
+
+			$('#form').submit(function(){
+
+	
+
+				var andrey = $.ajax({
+					url: 'send.php',
+					method: 'post',
+					data: form,
+					processData: false,
+					contentType: false
+				});
+
+
+				andrey.done(function(data){
+					console.log(data)
+				})
+
+
+				alert('sucesso');
+				return false;
+			});
+		});
+
+	</script>
+</body>
+</html>
